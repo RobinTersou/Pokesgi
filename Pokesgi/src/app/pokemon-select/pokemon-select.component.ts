@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { Pokemon, Type } from '../models/Pokemon';
+import  pokemonGif  from 'pokemon-gif';
 
 @Component({
   selector: 'app-pokemon-select',
@@ -49,6 +50,10 @@ export class PokemonSelectComponent implements OnInit {
     } else {
         this.turnSelection = 0;
     }
+  }
+
+  pokemonGif(name: string) {
+    return pokemonGif(name);
   }
 
   filter(type: Type): void {

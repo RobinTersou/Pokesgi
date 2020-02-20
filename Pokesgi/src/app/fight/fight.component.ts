@@ -1,10 +1,11 @@
+import { LoggerService } from './../services/logger.service';
 import { Pokemon } from './../models/Pokemon';
 import { FightService, PokemonFightListener } from './../services/fight.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { tap, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
-
+import { Log, LogType } from '../models/Log';
 
 @Component({
   selector: 'app-fight',
@@ -15,11 +16,20 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 export class FightComponent implements OnInit, PokemonFightListener {
 
+  isFinished: boolean;
+  isRunning: boolean;
   pokemon1: Pokemon;
   pokemon2: Pokemon;
   subscriber: Subscription;
   title: string;
-  constructor(private route: ActivatedRoute, private fightService: FightService) { }
+  loggerService: LoggerService;
+  LogType = LogType;
+
+  stateScale : string = "inactive"; 
+
+  constructor(private route: ActivatedRoute, private fightService: FightService, logger: LoggerService) { 
+    this.loggerService = logger;
+  }
 
   ngOnInit(): void {
       this.fightService.subscribe(this);
@@ -44,6 +54,10 @@ export class FightComponent implements OnInit, PokemonFightListener {
         })
         ).subscribe();
     
+  }
+
+  handleMainButton() {
+
   }
 
   onPokemonAttack(attacker: Pokemon, defender: Pokemon) {

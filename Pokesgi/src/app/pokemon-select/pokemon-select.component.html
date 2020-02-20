@@ -5,7 +5,7 @@
       src="../assets/images/pokemon-logo.png">
     
     <div class="spacer"></div>
-    <a [routerLink]="['/fight', selectedPokemons[0].name, selectedPokemons[1].name]">Let's fight</a>
+    <a *ngIf="selectedPokemons.length == 2"[routerLink]="['/fight', selectedPokemons[0].name, selectedPokemons[1].name]">Let's fight</a>
       
 </div>
 <div class="content">

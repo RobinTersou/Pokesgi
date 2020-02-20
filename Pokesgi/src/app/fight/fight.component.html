@@ -1,1 +1,41 @@
-<p>fight works!</p>
+
+
+<div id="fight-content">
+
+    <img alt="Pokemon-Arena" class="background-image" id="pokemon-arena" src="../assets/images/arena.jpg">
+    <div id="log-screen">
+        <p [className]="log.type == LogType.ATTACK ? 'log-text red' :
+                        log.type == LogType.LOST_HP ? 'log-text yellow' :
+                        log.type == LogType.INFOS ? 'log-text blue' :
+                        log.type == LogType.WINNER ? 'log-text green' : 'log-text'" *ngFor="let log of loggerService.logs">{{ log.date | date:'HH:mm:ss' }} - {{ log.text }}</p>
+    </div>
+    <img alt="Pokemon-1" id="pokemon1" [className]="pokemon1?.hp > 0 ? 'pokemon-image' : 'pokemon-image looser'" src="{{ pokemon1?.backDefault }}">
+    <img alt="Pokemon-2" id="pokemon2" [className]="pokemon2?.hp > 0 ? 'pokemon-image' : 'pokemon-image looser'" src="{{ pokemon2?.frontDefault }}">
+
+    <div id="pokemon1-info" class="pokemon-info">
+        <p style="margin-left: 10px;">{{ pokemon1?.name.toUpperCase() }}<i style="position:absolute;right:10px;">lvl {{ pokemon1?.level }}</i></p>
+        <!-- <progress-bar [progress]="pokemon1?.hpPercentage" [color-degraded]="{'0': 'darkred',  '33': 'orange', '66': 'limegreen'}">
+        </progress-bar>-->
+        <p style="margin-left:10px;font-size:0.8vw;">HP : {{ pokemon1?.hp }} / {{ pokemon1?.maxHp }}</p>
+    </div>
+
+    <div id="pokemon2-info" class="pokemon-info">
+        <p style="margin-left: 10px;">{{ pokemon2?.name.toUpperCase() }}<i style="position:absolute;right:10px;">lvl {{ pokemon2?.level }}</i></p>
+        <!--<progress-bar [progress]="pokemon2?.hpPercentage" [color-degraded]="{'0': 'darkred',  '33': 'orange', '66': 'limegreen'}">
+        </progress-bar>-->
+        <p style="margin-left: 10px;font-size:0.8vw;">HP : {{ pokemon2?.hp }} / {{ pokemon2?.maxHp }}</p>e
+    </div>
+
+    <div (click)="handleMainButton()" id="start-fight" [className]="!isFinished && isRunning ? 'start-div running' : 'start-div'">
+        <img alt="Pokeball" class="start-image" src="../assets/images/pokeball.png">
+        <p *ngIf="!isFinished && !isRunning" class="start-text">Play</p>
+        <p *ngIf="!isFinished && isRunning" class="start-text">Pause</p>
+        <p *ngIf="isFinished" class="start-text">Again</p>
+    </div>
+
+    <div [routerLink]="['/home']" *ngIf="isFinished" id="finish-fight" class="start-div">
+        <img alt="Pokeball" class="start-image" src="../assets/images/pokeball.png">
+        <p class="start-text">Finish</p>
+    </div>
+
+</div>

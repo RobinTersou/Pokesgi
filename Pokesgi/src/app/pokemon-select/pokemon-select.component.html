@@ -5,13 +5,12 @@
       width="200"
         alt="Angular Logo"
         src="../assets/images/pokemon-logo.png" style=" display: block; margin-left: auto; margin-right: auto;">
-
-      <div class="spacer"></div>
     </div>
   </div>
 </section>
 <div class="columns" style="margin: 10px;">
   <div class="column is-one-quarter">
+<<<<<<< HEAD
     <div *ngIf="selectedPokemons[0] == undefined && turnSelection == 0 && !formPokemon">
         <p>Choississez un Pokémon <br> ou <br> <button (click)="createPokemon()">>Créez le votre</button> </p>
     </div>
@@ -19,6 +18,9 @@
         <app-pokemon-form></app-pokemon-form>
     </div>
     <div class="box" style="background-color: rgba(255 , 0, 0, 0.8);" *ngIf="selectedPokemons[0] != undefined;">
+=======
+    <div class="box" *ngIf="selectedPokemons[0] != undefined;" style="background-color: rgba(255 , 0, 0, 0.8);">
+>>>>>>> design
       <div class="player">
           <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 1</h1>
 
@@ -67,6 +69,7 @@
                     </div>
                   </div>
                 </article>
+
             </div>
           </div>
       </div>
@@ -74,17 +77,20 @@
   </div>
   <div class="column">
     <button class="button is-warning is-large is-fullwidth" style="text-align: center; color : white; font-family: Agency FB; margin: 5px;" *ngIf="selectedPokemons.length == 2;" [routerLink]="['/fight', selectedPokemons[0].name, selectedPokemons[1].name]" ><strong>LET'S FIGHT !</strong></button>
+    <div class="box" style="overflow-y: scroll; max-height: 60vh">
+
         <div fxLayout="row wrap" fxLayoutAlign="flex-start">
-            <div *ngFor="let pokemon of displayedPokemons" class="pokemon-card" fxLayout="column" (click)="selectPokemon(pokemon);">
+            <div *ngFor="let pokemon of displayedPokemons" class="pokemon-card" fxLayout="column" (click)="selectPokemon(pokemon);" style="cursor:pointer;">
                   <img src={{pokemon.frontDefault}}>
                   <h1 class="title is-centered is-7" style="text-align: center; margin-bottom:10px"><strong>{{pokemon.name}}</strong></h1>
             </div>
         </div>
+      </div>
   </div>
   <div class="column is-one-quarter">
-    <div class="box" style="background-color: rgba(0 , 0, 255, 0.8);" *ngIf="selectedPokemons[1] != undefined;">
+    <div class="box" *ngIf="selectedPokemons[1] != undefined;" style="background-color: rgba(0, 0, 255, 0.8);">
       <div class="player">
-          <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 1</h1>
+          <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 2</h1>
 
           <div class="pokemon-detail" >
               <figure class="image is-128x128" style=" display: block; margin-left: auto; margin-right: auto;">
@@ -131,6 +137,7 @@
                     </div>
                   </div>
                 </article>
+
             </div>
           </div>
       </div>

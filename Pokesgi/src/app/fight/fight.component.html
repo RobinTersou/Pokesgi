@@ -1,35 +1,35 @@
-<div class="columns" style="margin: 10px;" style="background-image :url(../assets/images/arena.jpg); background-repeat: no-repeat;background-position: center; background-size: cover; width: 100%; height: 100%;">
-  <div class="column is-one-quarter">
+<div class="columns" id="pokemon-arena"style="margin: 10px;" style="background-image :url(../assets/images/arena.jpg); background-repeat: no-repeat;background-position: center; background-size: cover;">
+  <div class="column is-one-third">
     <div class="box" style="background-color: rgba(255 , 0, 0, 0.8); margin: 40px">
       <div class="player">
-          <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 1</h1>
+          <h1 class="title is-centered is-2" style="text-align: center; color : white; font-family: Agency FB;">{{pokemon1?.name.toUpperCase()}}</h1>
 
           <div class="pokemon-detail" >
               <div class="pokemon-stats">
-                <div class="media-left">
-                  <figure class="image is-24x24">
-                    <img src="../assets/images/coeur.png">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong style="color: white;">{{pokemon1?.hp}}</strong>
-
-                      <progress class="progress is-info" value="45" max="100" style="margin-top:20px">45%</progress>
-                    </p>
+                <article class="media">
+                  <div class="media-left" >
+                    <figure class="image is-24x24">
+                      <img src="../assets/images/coeur.png">
+                    </figure>
                   </div>
-                </div>
+                  <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <strong style="color: white;">{{pokemon1?.hp}}</strong>
+
+                        <progress class="progress is-info" [value]="pokemon1?.hp / pokemon1?.maxHp * 100 " max="100" style="margin-top:10px"></progress>
+                      </p>
+                    </div>
+                  </div>
+                </article>
             </div>
           </div>
       </div>
     </div>
-    <figure class="image is-128x128" style=" display: block; margin-left: auto; margin-right: auto;">
-        <img [src]="pokemonGif(pokemon1.name)" style="display: block; margin-left: auto; margin-right: auto;">
-    </figure>
+
   </div>
   <div class="column">
-      <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB; margin-top:20px;">POKEMON1 VS POKEMON2</h1>
+      <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB; margin-top:20px;"> VS</h1>
 
     <div class ="box" id="log-screen">
         <p [className]="log.type == LogType.ATTACK ? 'log-text red' :
@@ -37,45 +37,48 @@
                         log.type == LogType.INFOS ? 'log-text blue' :
                         log.type == LogType.WINNER ? 'log-text green' : 'log-text'" *ngFor="let log of loggerService.logs">{{ log.date | date:'HH:mm:ss' }} - {{ log.text }}</p>
     </div>
+    <img alt="Pokemon-1" id="pokemon1" [className]="pokemon1?.hp > 0 ? 'pokemon-image' : 'pokemon-image looser'" src="{{ pokemon1?.backDefault }}">
+    <img alt="Pokemon-2" id="pokemon2" [className]="pokemon2?.hp > 0 ? 'pokemon-image' : 'pokemon-image looser'" src="{{ pokemon2?.frontDefault }}">
 
-    <button class="button is-warning is-large is-fullwidth" style="text-align: center; color : white; font-family: Agency FB; margin: 5px;" (click)="handleMainButton()" id="start-fight" [className]="!isFinished && isRunning ? 'start-div running' : 'start-div'">
+    <button class="button is-warning is-fullwidth" (click)="handleMainButton()"  id="start">
       <figure class="image is-24x24">
         <img src="../assets/images/pokeball.png">
       </figure>
-      <p *ngIf="!isFinished && !isRunning" class="start-text">Play</p>
-      <p *ngIf="!isFinished && isRunning" class="start-text">Pause</p>
-      <p *ngIf="isFinished" class="start-text">Again</p>
+      <p *ngIf="!isFinished && !isRunning" class="start-text"> PLAY</p>
+      <p *ngIf="!isFinished && isRunning" class="start-text"> STOP</p>
+      <p *ngIf="isFinished" class="start-text"> AGAIN</p>
     </button>
-    <div [routerLink]="['/home']" *ngIf="isFinished" id="finish-fight" class="start-div">
-        <img alt="Pokeball" class="start-image" src="../assets/images/pokeball.png">
-        <p class="start-text">Finish</p>
-    </div>
+
+    <button class="button is-info is-fullwidth" [routerLink]="['/home']" *ngIf="isFinished" id="finish">
+      <figure class="image is-24x24">
+        <img src="../assets/images/pokeball.png">
+      </figure>
+        <p class="start-text"> FINISH</p>
+    </button>
 
   </div>
-  <div class="column is-one-quarter">
-    <figure class="image is-128x128" style=" display: block; margin-left: auto; margin-right: auto;">
-        <img [src]="pokemonGif(pokemon2.name)" style="display: block; margin-left: auto; margin-right: auto;">
-    </figure>
+  <div class="column is-one-third">
     <div class="box" style="background-color: rgba(0, 0, 255, 0.8); margin: 40px">
       <div class="player">
-          <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 2</h1>
+          <h1 class="title is-centered is-2" style="text-align: center; color : white; font-family: Agency FB;"> {{pokemon2?.name.toUpperCase()}}</h1>
           <div class="pokemon-detail" >
               <div class="pokemon-stats">
-                <h1 class="title is-centered is-3" style="text-align: center;color : white; margin-top:50px;">{{pokemon2?.name}}</h1>
-                <div class="media-left">
-                  <figure class="image is-24x24">
-                    <img src="../assets/images/coeur.png">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      <strong style="color: white;">{{pokemon2?.hp}}</strong>
-
-                      <progress class="progress is-danger" value="75" max="100" style="margin-top:20px">75%</progress>
-                    </p>
+                <article class="media">
+                  <div class="media-left">
+                    <figure class="image is-24x24">
+                      <img src="../assets/images/coeur.png">
+                    </figure>
                   </div>
-                </div>
+                  <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <strong style="color: white;">{{pokemon2?.hp}}</strong>
+
+                        <progress class="progress is-info" [value]="pokemon2?.hp / pokemon2?.maxHp * 100 " max="100" style="margin-top:20px"></progress>
+                      </p>
+                    </div>
+                  </div>
+                </article>
             </div>
           </div>
       </div>

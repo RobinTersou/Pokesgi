@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { tap, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Log, LogType } from '../models/Log';
+import { Log, LogType } from '../models/Log';
 import * as $ from "jquery";
 import  pokemonGif  from 'pokemon-gif';
 

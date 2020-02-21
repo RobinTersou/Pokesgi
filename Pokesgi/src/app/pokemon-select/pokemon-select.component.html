@@ -1,4 +1,4 @@
-<section class="hero is-info">
+<section class="hero is-light">
   <div class="hero-body">
     <div class="container">
       <img
@@ -12,11 +12,11 @@
 </section>
 <div class="columns" style="margin: 10px;">
   <div class="column is-one-quarter">
-    <div class="box" style="background-color: rgba(255 , 0, 0, 0.8);">
+    <div class="box" style="background-color: rgba(255 , 0, 0, 0.8);" *ngIf="selectedPokemons[0] != undefined;">
       <div class="player">
           <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 1</h1>
 
-          <div class="pokemon-detail" *ngIf="selectedPokemons[0] != undefined;" >
+          <div class="pokemon-detail" >
               <figure class="image is-128x128" style=" display: block; margin-left: auto; margin-right: auto;">
                   <img [src]="pokemonGif(selectedPokemons[0].name)" style="display: block; margin-left: auto; margin-right: auto;">
               </figure>
@@ -50,13 +50,13 @@
                   </div>
                   <div class="media-left">
                     <figure class="image is-24x24">
-                      <img src="../assets/images/coeur.png">
+                      <img src="../assets/images/poke.png">
                     </figure>
                   </div>
                   <div class="media-content">
                     <div class="content">
                       <p>
-                        <strong style="color: white;">{{selectedPokemons[0].speed}}</strong>
+                        <strong style="color: white;">{{selectedPokemons[0].type}}</strong>
                       </p>
                     </div>
                   </div>
@@ -76,17 +76,58 @@
         </div>
   </div>
   <div class="column is-one-quarter">
-    <div class="player">
-        <h1> Joueur 2</h1>
-        <div class="pokemon-detail" *ngIf="selectedPokemons[0] != undefined;" >
-            <div class="img-container">
-                <!-- Image pokemon selectionné Joueur 1-->
-                <img [src]="pokemonGif(selectedPokemons[1].name)">
+    <div class="box" style="background-color: rgba(0 , 0, 255, 0.8);" *ngIf="selectedPokemons[1] != undefined;">
+      <div class="player">
+          <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 1</h1>
+
+          <div class="pokemon-detail" >
+              <figure class="image is-128x128" style=" display: block; margin-left: auto; margin-right: auto;">
+                  <img [src]="pokemonGif(selectedPokemons[1].name)" style="display: block; margin-left: auto; margin-right: auto;">
+              </figure>
+              <div class="pokemon-stats">
+                <h1 class="title is-centered is-3" style="text-align: center;color : white; margin-top:50px;">{{selectedPokemons[1].name}}</h1>
+
+                <article class="media">
+                  <div class="media-left">
+                    <figure class="image is-24x24">
+                      <img src="../assets/images/speed.png">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <strong style="color: white;">{{selectedPokemons[1].speed}}</strong>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="media-left">
+                    <figure class="image is-24x24">
+                      <img src="../assets/images/coeur.png">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <strong style="color: white;">{{selectedPokemons[1].hp}}</strong>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="media-left">
+                    <figure class="image is-24x24">
+                      <img src="../assets/images/poke.png">
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <strong style="color: white;">{{selectedPokemons[1].type}}</strong>
+                      </p>
+                    </div>
+                  </div>
+                </article>
             </div>
-            <div class="pokemon-stats">
-                {{selectedPokemons[1].name}}
-            </div>
-        </div>
+          </div>
+      </div>
     </div>
   </div>
 </div>

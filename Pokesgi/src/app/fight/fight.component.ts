@@ -7,6 +7,8 @@ import { tap, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Log, LogType } from '../models/Log';
 import * as $ from "jquery";
+import  pokemonGif  from 'pokemon-gif';
+
 
 @Component({
   selector: 'app-fight',
@@ -26,9 +28,9 @@ export class FightComponent implements OnInit, PokemonFightListener {
   loggerService: LoggerService;
   LogType = LogType;
 
-  stateScale : string = "inactive"; 
+  stateScale : string = "inactive";
 
-  constructor(private route: ActivatedRoute, private fightService: FightService, logger: LoggerService) { 
+  constructor(private route: ActivatedRoute, private fightService: FightService, logger: LoggerService) {
     this.loggerService = logger;
   }
 
@@ -55,7 +57,7 @@ export class FightComponent implements OnInit, PokemonFightListener {
             return this.fightService.attack();
         })
         ).subscribe();
-    
+
   }
 
   handleMainButton() {
@@ -98,6 +100,10 @@ export class FightComponent implements OnInit, PokemonFightListener {
     if (attacker.hp <= 0 || defender.hp <= 0) {
         this.isFinished = true;
     }
+  }
+
+  pokemonGif(name: string) {
+    return pokemonGif(name);
   }
 
   scrollToContent() {

@@ -12,6 +12,12 @@
 </section>
 <div class="columns" style="margin: 10px;">
   <div class="column is-one-quarter">
+    <div *ngIf="selectedPokemons[0] == undefined && turnSelection == 0 && !formPokemon">
+        <p>Choississez un Pokémon <br> ou <br> <button (click)="createPokemon()">>Créez le votre</button> </p>
+    </div>
+    <div *ngIf="formPokemon">
+        <app-pokemon-form></app-pokemon-form>
+    </div>
     <div class="box" style="background-color: rgba(255 , 0, 0, 0.8);" *ngIf="selectedPokemons[0] != undefined;">
       <div class="player">
           <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 1</h1>

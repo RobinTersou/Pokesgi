@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { Pokemon, Type } from '../models/Pokemon';
 import  pokemonGif  from 'pokemon-gif';
+import { PokemonFormComponent } from '../pokemon-form/pokemon-form.component';
 
 @Component({
   selector: 'app-pokemon-select',
@@ -16,6 +17,7 @@ export class PokemonSelectComponent implements OnInit {
   selectedType: Type[];
   selectedPokemons: Pokemon[] = [];
   turnSelection: number = 0;
+  formPokemon: boolean = false;
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -26,6 +28,10 @@ export class PokemonSelectComponent implements OnInit {
     })*/
     this.getAllPokemons();
     this.getAllTypes();
+  }
+
+  createPokemon() {
+    this.formPokemon = true;
   }
 
   getAllPokemons() {

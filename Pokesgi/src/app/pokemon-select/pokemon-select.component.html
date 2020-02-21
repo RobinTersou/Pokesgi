@@ -10,17 +10,15 @@
 </section>
 <div class="columns" style="margin: 10px;">
   <div class="column is-one-quarter">
-<<<<<<< HEAD
+    <!--
     <div *ngIf="selectedPokemons[0] == undefined && turnSelection == 0 && !formPokemon">
         <p>Choississez un Pokémon <br> ou <br> <button (click)="createPokemon()">>Créez le votre</button> </p>
     </div>
     <div *ngIf="formPokemon">
         <app-pokemon-form></app-pokemon-form>
     </div>
+  -->
     <div class="box" style="background-color: rgba(255 , 0, 0, 0.8);" *ngIf="selectedPokemons[0] != undefined;">
-=======
-    <div class="box" *ngIf="selectedPokemons[0] != undefined;" style="background-color: rgba(255 , 0, 0, 0.8);">
->>>>>>> design
       <div class="player">
           <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 1</h1>
 
@@ -69,7 +67,6 @@
                     </div>
                   </div>
                 </article>
-
             </div>
           </div>
       </div>
@@ -80,6 +77,9 @@
     <div class="box" style="overflow-y: scroll; max-height: 60vh">
 
         <div fxLayout="row wrap" fxLayoutAlign="flex-start">
+            <div *ngIf="displayedPokemons == undefined" >
+                <h1 style="text-align:center">Chargement des pokemons...</h1>
+            </div>
             <div *ngFor="let pokemon of displayedPokemons" class="pokemon-card" fxLayout="column" (click)="selectPokemon(pokemon);" style="cursor:pointer;">
                   <img src={{pokemon.frontDefault}}>
                   <h1 class="title is-centered is-7" style="text-align: center; margin-bottom:10px"><strong>{{pokemon.name}}</strong></h1>
@@ -137,7 +137,6 @@
                     </div>
                   </div>
                 </article>
-
             </div>
           </div>
       </div>

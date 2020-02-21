@@ -49,7 +49,7 @@
       <p *ngIf="isFinished" class="start-text"> AGAIN</p>
     </button>
 
-    <button class="button is-info is-fullwidth" [routerLink]="['/home']" *ngIf="isFinished" id="finish">
+    <button class="button is-info is-fullwidth" [routerLink]="['/pokemon-selection']" *ngIf="isFinished" id="finish">
       <figure class="image is-24x24">
         <img src="../assets/images/pokeball.png">
       </figure>
@@ -74,7 +74,7 @@
                       <p>
                         <strong style="color: white;">{{pokemon2?.hp}}</strong>
 
-                        <progress class="progress is-info" [value]="pokemon2?.hp / pokemon2?.maxHp * 100 " max="100" style="margin-top:20px"></progress>
+                        <progress class="progress is-danger" [value]="pokemon2?.hp / pokemon2?.maxHp * 100 " max="100" style="margin-top:20px"></progress>
                       </p>
                     </div>
                   </div>

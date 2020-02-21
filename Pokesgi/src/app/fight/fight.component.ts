@@ -20,7 +20,7 @@ import  pokemonGif  from 'pokemon-gif';
 export class FightComponent implements OnInit, PokemonFightListener {
 
   isFinished: boolean;
-  isRunning: boolean;
+  isRunning: boolean = false;
   pokemon1: Pokemon;
   pokemon2: Pokemon;
   subscriber: Subscription;

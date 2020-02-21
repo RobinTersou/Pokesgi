@@ -47,7 +47,7 @@ export class FightService {
               this.loggerService.writeLog(new Log("Starting fight : "+pokemon1.name.toUpperCase()+" vs "+pokemon2.name.toUpperCase(), new Date(), LogType.INFOS));
 
               this.winner = undefined;
-              this.isPause = false;
+              this.isPause = true;
 
               const starter = this.whichPokemonStart(pokemon1, pokemon2);
               const other = starter === pokemon1 ? pokemon2 : pokemon1;
@@ -64,7 +64,7 @@ export class FightService {
   }
 
   whichPokemonStart(pokemon1: Pokemon, pokemon2: Pokemon): Pokemon {
-    return pokemon1.speed >= pokemon2.speed ? pokemon1 : pokemon2;
+    return (pokemon1.speed >= pokemon2.speed) ? pokemon1 : pokemon2;
   }
 
   attack(): Observable<Pokemon> {

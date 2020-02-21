@@ -24,9 +24,6 @@
           </div>
       </div>
     </div>
-    <figure class="image is-128x128" style=" display: block; margin-left: auto; margin-right: auto;">
-        <img [src]="pokemonGif(pokemon1.name)" style="display: block; margin-left: auto; margin-right: auto;">
-    </figure>
   </div>
   <div class="column">
       <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB; margin-top:20px;">POKEMON1 VS POKEMON2</h1>
@@ -37,6 +34,13 @@
                         log.type == LogType.INFOS ? 'log-text blue' :
                         log.type == LogType.WINNER ? 'log-text green' : 'log-text'" *ngFor="let log of loggerService.logs">{{ log.date | date:'HH:mm:ss' }} - {{ log.text }}</p>
     </div>
+    <figure class="image is-128x128" style=" display: block; margin-left: 0; ">
+        <img [src]="pokemonGif(pokemon1.name)" style="display: block; margin-left: auto; margin-right: 0;">
+    </figure>
+
+    <figure class="image is-128x128" style=" display: block; margin-left: auto; margin-right: auto;">
+        <img [src]="pokemonGif(pokemon2.name)" style="display: block; margin-left: auto; margin-right: auto;">
+    </figure>
 
     <button class="button is-warning is-large is-fullwidth" style="text-align: center; color : white; font-family: Agency FB; margin: 5px;" (click)="handleMainButton()" id="start-fight" [className]="!isFinished && isRunning ? 'start-div running' : 'start-div'">
       <figure class="image is-24x24">
@@ -53,9 +57,6 @@
 
   </div>
   <div class="column is-one-quarter">
-    <figure class="image is-128x128" style=" display: block; margin-left: auto; margin-right: auto;">
-        <img [src]="pokemonGif(pokemon2.name)" style="display: block; margin-left: auto; margin-right: auto;">
-    </figure>
     <div class="box" style="background-color: rgba(0, 0, 255, 0.8); margin: 40px">
       <div class="player">
           <h1 class="title is-centered is-1" style="text-align: center; color : white; font-family: Agency FB;">PLAYER 2</h1>

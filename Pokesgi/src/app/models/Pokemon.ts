@@ -35,7 +35,7 @@ export class Pokemon {
     public attackOn(other: Pokemon,
         randomProvider: () => number = () => Math.floor(Math.random() * Math.floor(this.moves.length))
     ): AttackResult {
-
+        console.log(this.moves);
         const move = this.moves[randomProvider()];
         const damages = move.calculateDamages(this, other);
         other.hp -= damages;
@@ -64,10 +64,11 @@ export class Move {
     ) { }
 
     public calculateDamages(attacker: Pokemon, target: Pokemon): number {
-
+        
         return Math.floor(Math.floor(Math.floor(2 * attacker.level / 5 + 2) * attacker.attack * this.power / target.defense));
 
     }
+
 
 }
 

@@ -2,10 +2,11 @@ import { LoggerService } from './../services/logger.service';
 import { Pokemon } from './../models/Pokemon';
 import { FightService, PokemonFightListener } from './../services/fight.service';
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { tap, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Log, LogType } from '../models/Log';
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-fight',
@@ -47,6 +48,7 @@ export class FightComponent implements OnInit, PokemonFightListener {
         }),
         mergeMap(() => this.fightService.getPokemons(p1, p2)),
         tap((pokemons: Pokemon[]) => {
+            console.log(pokemons);
             [this.pokemon1, this.pokemon2] = pokemons;
         }),
         mergeMap(() => {
@@ -57,11 +59,49 @@ export class FightComponent implements OnInit, PokemonFightListener {
   }
 
   handleMainButton() {
-
+    if (this.isFinished) {
+      this.isRunning = false;
+      this.isFinished = false;
+      this.subscriber.unsubscribe();
+      this.initiateFight();
+    } else {
+      this.isRunning = !this.isRunning;
+      this.fightService.setPause(!this.isRunning);
+    }
   }
 
   onPokemonAttack(attacker: Pokemon, defender: Pokemon) {
+    $('#log-screen').animate( { scrollTop: $('#log-screen').offset().top }, 1000 );
+    let attackr, defendr;
+    if (attacker.name == this.pokemon1.name) {
+        attackr = '#pokemon1';
+        defendr = '#pokemon2';
+        $(attackr).animate( { left: '+=100' }, 250, function() {
+            $(attackr).animate( { left: '-=100' }, 250);
+        });
+    } else {
+        attackr = '#pokemon2';
+        defendr = '#pokemon1';
+        $(attackr).animate( { left: '-=100' }, 250, function() {
+            $(attackr).animate( { left: '+=100' }, 250);
+        });
+    }
+    let timr = timer(0, 100);
+    let sub = timr.subscribe(val => {
+        let opac =  $(defendr).css('opacity') == '0' ? '1' : '0';
+        $(defendr).css('opacity', opac);
+    });
+    setTimeout(() => {
+        sub.unsubscribe();
+        $(defendr).css('opacity', '1');
+    }, 500);
+    if (attacker.hp <= 0 || defender.hp <= 0) {
+        this.isFinished = true;
+    }
+  }
 
+  scrollToContent() {
+    $('html, body').animate( { scrollTop: $('#fight-content').offset().top + 80 }, 1000 );
   }
 
 }

@@ -1,6 +1,6 @@
 import { LoggerService } from './logger.service';
 import { PokemonService } from './pokemon.service';
-import { Pokemon, AttackResult } from './../models/Pokemon';
+import { Pokemon, AttackResult, Type } from './../models/Pokemon';
 import { Injectable } from '@angular/core';
 import { Log, LogType } from '../models/Log';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
@@ -20,8 +20,9 @@ export class FightService {
     private attacker: Pokemon;
     private defender: Pokemon;
     private winner: Pokemon;
+    private damageRelations: Array<Type[]>;
     private listener: PokemonFightListener;
-    private isPause = true;
+    private isPause = false;
     private intervalObservable: Observable<void>;
 
     constructor(private loggerService: LoggerService, private pokemonService: PokemonService) {}
@@ -34,7 +35,7 @@ export class FightService {
       let pokemon1;
       let pokemon2;
 
-      return this.pokemonService.getPokemonDetails(pokemon1)
+      return this.pokemonService.getPokemonDetails(pokemonName1)
           .pipe(
             tap((pokemon) => pokemon1 = pokemon),
             mergeMap(() => {
@@ -46,11 +47,12 @@ export class FightService {
               this.loggerService.writeLog(new Log("Starting fight : "+pokemon1.name.toUpperCase()+" vs "+pokemon2.name.toUpperCase(), new Date(), LogType.INFOS));
 
               this.winner = undefined;
-              this.isPause = true;
+              this.isPause = false;
 
               const starter = this.whichPokemonStart(pokemon1, pokemon2);
               const other = starter === pokemon1 ? pokemon2 : pokemon1;
-
+              //this.calculateDamageRelations(pokemon1, pokemon2)
+              
               this.attacker = starter;
               this.defender = other;
 
@@ -66,13 +68,13 @@ export class FightService {
   }
 
   attack(): Observable<Pokemon> {
-
+    
     return this.getDelayObservable()
         .pipe(
             filter(() => !this.isPause),
             filter(() => !this.winner),
             tap(() => {
-
+                
                 const attackResult = this.attacker.attackOn(this.defender);
 
                 this.loggerService.writeLog(new Log(this.attacker.name.toUpperCase()+" attack "+this.defender.name.toUpperCase()+" with "+attackResult.name+" : "+attackResult.damages+" damage", new Date(), LogType.ATTACK));
@@ -112,6 +114,15 @@ export class FightService {
     }
 
     return this.intervalObservable;
-
   }
+
+  setPause(bool) {
+
+    if (this.loggerService.logs.length > 2 && !this.winner) {
+        let text = bool ? 'Game paused' : 'Game resumed';
+        this.loggerService.writeLog(new Log(text, new Date(), LogType.INFOS));
+    }
+    this.isPause = bool;
+
+}
 }
